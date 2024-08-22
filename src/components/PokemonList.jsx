@@ -2,7 +2,29 @@ import React from "react";
 import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
 
-const StyledListCt = styled.div`
+const PokemonList = ({ pokemonList, onAddPokemon }) => {
+  return (
+    <StListContainer>
+      {pokemonList.map((pokemon) => {
+        return (
+          <PokemonCard
+            key={pokemon.id}
+            pokemon={pokemon}
+            onAdd={() => {
+              onAddPokemon(pokemon);
+            }}
+            isSelected="false"
+          />
+        );
+      })}
+    </StListContainer>
+  );
+};
+
+export default PokemonList;
+
+// styled components
+const StListContainer = styled.div`
   background-color: #ffd177;
   width: 1000px;
   border-radius: 10px;
@@ -13,21 +35,3 @@ const StyledListCt = styled.div`
   gap: 20px 10px;
   justify-items: center;
 `;
-const PokemonList = ({ pokemonList }) => {
-  return (
-    <StyledListCt>
-      {pokemonList.map((pokemon) => {
-        return (
-          <PokemonCard
-            key={pokemon.id}
-            pokemon={pokemon}
-            onAdd={() => {}}
-            isSelected="false"
-          />
-        );
-      })}
-    </StyledListCt>
-  );
-};
-
-export default PokemonList;
