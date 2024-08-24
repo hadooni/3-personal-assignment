@@ -1,7 +1,10 @@
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { PokemonContext } from "../pages/Dex";
 
-const Dashboard = ({ selectedPokemon, onRemovePokemon }) => {
+const Dashboard = () => {
+  const { selectedPokemon, removePokemon } = useContext(PokemonContext);
   const navigate = useNavigate();
   return (
     <StDashboardContainer>
@@ -17,7 +20,12 @@ const Dashboard = ({ selectedPokemon, onRemovePokemon }) => {
               <p>{pokemon.name}</p>
               <p>{pokemon.number}</p>
               {pokemon.isSelected ? (
-                <StButton onClick={() => onRemovePokemon(pokemon)}>
+                <StButton
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    removePokemon(pokemon);
+                  }}
+                >
                   삭제
                 </StButton>
               ) : (

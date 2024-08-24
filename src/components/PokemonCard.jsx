@@ -1,30 +1,44 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { PokemonContext } from "../pages/Dex";
 
-const PokemonCard = ({ pokemon, onAdd, isSelected }) => {
+const PokemonCard = () => {
+  const { MOCK_DATA, addPokemon } = useContext(PokemonContext);
   const navigate = useNavigate();
-  const { id, img_url, korean_name } = pokemon;
+  let isSelected = true;
   return (
-    <StCard onClick={() => navigate(`/pokemon-detail?id=${id}`)}>
-      <div>
-        <img src={img_url} alt={`${korean_name} 이미지`} />
-        <p>{korean_name}</p>
-        <p>No. {id} </p>
-      </div>
-      {isSelected ? (
-        <StButton
-          onClick={(e) => {
-            e.stopPropagation();
-            onAdd();
-          }}
-        >
-          추가
-        </StButton>
-      ) : (
-        <StButton>삭제</StButton>
-      )}
-    </StCard>
+    <>
+      {MOCK_DATA.map((pokemon) => {
+        return (
+          <StCard
+            key={pokemon.id}
+            onClick={() => navigate(`/pokemon-detail?id=${pokemon.id}`)}
+          >
+            <div>
+              <img
+                src={pokemon.img_url}
+                alt={`${pokemon.korean_name} 이미지`}
+              />
+              <p>{pokemon.korean_name}</p>
+              <p>No. {pokemon.id} </p>
+            </div>
+            {isSelected ? (
+              <StButton
+                onClick={(e) => {
+                  e.stopPropagation();
+                  addPokemon(pokemon);
+                }}
+              >
+                추가
+              </StButton>
+            ) : (
+              <StButton>삭제</StButton>
+            )}
+          </StCard>
+        );
+      })}
+    </>
   );
 };
 
