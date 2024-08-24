@@ -1,4 +1,3 @@
-import React from "react";
 import MOCK_DATA from "../mock";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components";

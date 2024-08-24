@@ -2,21 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
 
-const PokemonList = ({ pokemonList, onAddPokemon }) => {
+const PokemonList = ({}) => {
   return (
     <StListContainer>
-      {pokemonList.map((pokemon) => {
-        return (
-          <PokemonCard
-            key={pokemon.id}
-            pokemon={pokemon}
-            onAdd={() => {
-              onAddPokemon(pokemon);
-            }}
-            isSelected="false"
-          />
-        );
-      })}
+      <PokemonCard />
     </StListContainer>
   );
 };
