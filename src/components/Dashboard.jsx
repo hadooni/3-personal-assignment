@@ -1,11 +1,13 @@
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { PokemonContext } from "../pages/Dex";
+import { useSelector } from "react-redux";
+import { removePokemon } from "../redux/modules/pokemonSlice";
+import { useDispatch } from "react-redux";
 
 const Dashboard = () => {
-  const { selectedPokemon, removePokemon } = useContext(PokemonContext);
   const navigate = useNavigate();
+  const selectedPokemon = useSelector((state) => state.pokemon);
+  const dispatch = useDispatch();
 
   return (
     <StDashboardContainer>
@@ -31,7 +33,7 @@ const Dashboard = () => {
               <StButton
                 onClick={(e) => {
                   e.stopPropagation();
-                  removePokemon(pokemon);
+                  dispatch(removePokemon(pokemon));
                 }}
               >
                 삭제
