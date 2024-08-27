@@ -1,8 +1,7 @@
-import React from "react";
 import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
 
-const PokemonList = ({}) => {
+const PokemonList = () => {
   return (
     <StListContainer>
       <PokemonCard />
@@ -20,7 +19,7 @@ const StListContainer = styled.div`
   margin: 0 auto;
   padding: 20px;
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 20px 10px;
   justify-items: center;
 `;

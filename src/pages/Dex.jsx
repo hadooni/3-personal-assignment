@@ -6,7 +6,22 @@ import MOCK_DATA from "../mock";
 export const PokemonContext = createContext();
 
 const Dex = () => {
-  const [selectedPokemon, setSelectedPokemon] = useState([]);
+  const defaultCard = () => {
+    let arr = [];
+    for (let i = 0; i < 6; i++) {
+      arr.push({
+        img_url:
+          "https://react-6-pokemon.vercel.app/assets/pokeball-13iwdk7Y.png",
+        korean_name: "",
+        types: [],
+        id: 10000 + i,
+        description: "",
+      });
+    }
+    return arr;
+  };
+
+  const [selectedPokemon, setSelectedPokemon] = useState(defaultCard());
 
   const addPokemon = (pokemon) => {
     const addedPokemon = [
@@ -22,6 +37,19 @@ const Dex = () => {
     const samePokemon = selectedPokemon.find(
       (addedPk) => addedPk.id === pokemon.id
     );
+    const test = selectedPokemon.map((item) => {
+      if (item.id >= 10000) {
+        return {
+          id: pokemon.id,
+          img: pokemon.img_url,
+          name: pokemon.korean_name,
+          number: `No. ${pokemon.id}`,
+          isSelected: true,
+        };
+      }
+    });
+    console.log(test);
+
     if (selectedPokemon.length >= 6) {
       alert("더이상 포켓몬을 추가할 수 없습니다!");
     } else if (samePokemon) {

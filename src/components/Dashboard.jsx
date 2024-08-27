@@ -6,12 +6,20 @@ import { PokemonContext } from "../pages/Dex";
 const Dashboard = () => {
   const { selectedPokemon, removePokemon } = useContext(PokemonContext);
   const navigate = useNavigate();
+
   return (
     <StDashboardContainer>
       <h2>My Pokemon</h2>
       <StPokemonContainer>
         {selectedPokemon.map((pokemon) => {
-          return (
+          return pokemon.id >= 10000 ? (
+            <StDefaultCard>
+              <StDefaultCardImg
+                src="https://react-6-pokemon.vercel.app/assets/pokeball-13iwdk7Y.png"
+                alt={`${pokemon.name} 이미지`}
+              />
+            </StDefaultCard>
+          ) : (
             <StCard
               key={pokemon.id}
               onClick={() => navigate(`/pokemon-detail?id=${pokemon.id}`)}
@@ -19,18 +27,15 @@ const Dashboard = () => {
               <img src={pokemon.img} alt={`${pokemon.name} 이미지`} />
               <p>{pokemon.name}</p>
               <p>{pokemon.number}</p>
-              {pokemon.isSelected ? (
-                <StButton
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    removePokemon(pokemon);
-                  }}
-                >
-                  삭제
-                </StButton>
-              ) : (
-                <StButton>추가</StButton>
-              )}
+
+              <StButton
+                onClick={(e) => {
+                  e.stopPropagation();
+                  removePokemon(pokemon);
+                }}
+              >
+                삭제
+              </StButton>
             </StCard>
           );
         })}
@@ -79,4 +84,19 @@ const StButton = styled.button`
   border-radius: 5px;
   padding: 5px 10px;
   cursor: pointer;
+`;
+
+const StDefaultCard = styled.div`
+  width: 120px;
+  height: 120px;
+  background-color: white;
+  border: 3px dashed gray;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const StDefaultCardImg = styled.img`
+  width: 60px;
 `;

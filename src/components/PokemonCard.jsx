@@ -7,6 +7,7 @@ const PokemonCard = () => {
   const { MOCK_DATA, addPokemon } = useContext(PokemonContext);
   const navigate = useNavigate();
   let isSelected = true;
+
   return (
     <>
       {MOCK_DATA.map((pokemon) => {
