@@ -13,7 +13,7 @@ const Dashboard = () => {
       <StPokemonContainer>
         {selectedPokemon.map((pokemon) => {
           return pokemon.id >= 10000 ? (
-            <StDefaultCard>
+            <StDefaultCard key={pokemon.id}>
               <StDefaultCardImg
                 src="https://react-6-pokemon.vercel.app/assets/pokeball-13iwdk7Y.png"
                 alt={`${pokemon.name} 이미지`}
@@ -90,7 +90,7 @@ const StDefaultCard = styled.div`
   width: 120px;
   height: 120px;
   background-color: white;
-  border: 3px dashed gray;
+  border: 4px dashed #d5d3d6;
   border-radius: 8px;
   display: flex;
   align-items: center;

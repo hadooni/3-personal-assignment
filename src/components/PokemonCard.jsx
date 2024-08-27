@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { PokemonContext } from "../pages/Dex";
@@ -54,6 +54,9 @@ const StCard = styled.div`
   border-radius: 8px;
   text-align: center;
   cursor: pointer;
+  &:hover {
+    box-shadow: rgba(65, 65, 65, 0.35) 0px 5px 15px;
+  }
 `;
 
 const StButton = styled.button`

@@ -24,21 +24,15 @@ const Dex = () => {
   const [selectedPokemon, setSelectedPokemon] = useState(defaultCard());
 
   const addPokemon = (pokemon) => {
-    const addedPokemon = [
-      ...selectedPokemon,
-      {
-        id: pokemon.id,
-        img: pokemon.img_url,
-        name: pokemon.korean_name,
-        number: `No. ${pokemon.id}`,
-        isSelected: true,
-      },
-    ];
     const samePokemon = selectedPokemon.find(
       (addedPk) => addedPk.id === pokemon.id
     );
-    const test = selectedPokemon.map((item) => {
-      if (item.id >= 10000) {
+
+    let updated = false; // 교체 여부를 추적하기 위한 변수
+
+    const updatedPokemon = selectedPokemon.map((item) => {
+      if (item.id >= 10000 && !updated) {
+        updated = true; // 첫 번째 교체가 발생하면 이후에는 교체하지 않도록 설정
         return {
           id: pokemon.id,
           img: pokemon.img_url,
@@ -47,15 +41,15 @@ const Dex = () => {
           isSelected: true,
         };
       }
+      return item; // 다른 요소는 그대로 유지
     });
-    console.log(test);
 
-    if (selectedPokemon.length >= 6) {
-      alert("더이상 포켓몬을 추가할 수 없습니다!");
-    } else if (samePokemon) {
+    if (samePokemon) {
       alert("이미 선택된 포켓몬 입니다!");
+    } else if (selectedPokemon.length >= 6 && !updated) {
+      alert("더이상 포켓몬을 추가할 수 없습니다!");
     } else {
-      setSelectedPokemon(addedPokemon);
+      setSelectedPokemon(updatedPokemon);
     }
   };
 
